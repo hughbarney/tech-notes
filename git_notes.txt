@@ -1,0 +1,60 @@
+
+
+https://garygregory.wordpress.com/2016/11/10/how-to-catch-up-my-git-fork-to-master/
+
+$ git remote add upstream https://github.com/espruino/BangleApps.git
+$ git remote -v
+
+$ git fetch upstream
+$ git checkout master
+$ git merge upstream/master
+
+
+## some repositories call their branch main instead of master
+
+$ git checkout main
+$ git merge upstream/main
+
+$ git push origin main
+
+
+
+## merging a pull request in a local repo to push to master
+
+
+1) $ git fetch origin pull/ID/head:BRANCH_NAME
+
+ Where ID is the PR number on github
+ and BRANCH_NAME is what you want to call the branch for the PR
+
+2) git switch BRANCH_NAME
+¢
+
+At this point, you can do anything you want with this branch.
+You can run some local tests, or merge other branches into the branch.
+
+3) switch back to master and merge in changes loaclly
+
+$ git switch master
+
+$ git merge -m "merged PR16, command line argument processing via lisp, kudos to jorge-leon" pr_16
+
+
+
+## delete old branches
+
+// delete branch locally
+$ git branch -d localBranchName
+
+// delete branch remotely
+$ git push origin --delete remoteBranchName
+
+
+---------EXAMPLE------------
+
+$ git fetch origin pull/22/head:pr_22     ## 
+$ git switch pr_22                        ## compile, test, fix
+$ git switch master
+$ git merge -m "merged PR22, flist refactor" pr_22
+
+
