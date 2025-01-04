@@ -1,0 +1,163 @@
+NOTES on NVIDIA GRAPHICS CARD PROBLEMS AND LINUX
+A kernel upgrade often causes the driver not to load or be compiled into the kernel
+
+Note:  Dont ever use NVIDIA cards on Linux Again !
+-------------------------------------------------
+
+
+
+USEFUL COMMANDS
+------------------
+
+$ lspci | grep NVIDIA              ## See What NVIDIA devices are installed
+$ lsmod  | grep NVIDIA             ## What driver modules are loaded
+$ dpkg -l | grep -i NVIDIA         ## What packages are loaded
+$ sudo lshw -C display             ## whats my display driver
+
+
+
+
+
+
+Set Grub So you Can See What happens during boot
+------------------------------------------------
+$ sudo vi /etc/default/grub
+$ sudo update-grub
+
+
+What release of Linux am I
+---------------------------
+lsb_release -a
+
+## kernal 6.2.0.33
+
+
+The latest release of Elementary OS, version 7.1, is out, based on Ubuntu 22.04.3. We
+
+
+linux-modules-nvidia-510-5.13.0-35-generic
+
+
+## LINK ## 1 ##
+NVIDIA Whats the Procees to Fix ? 
+https://forums.developer.nvidia.com/t/whats-the-process-for-fixing-nvidia-drivers-after-kernel-updates-in-ubuntu-20-04/208870/10
+
+
+MY PROBLEM POST
+---------------
+https://github.com/orgs/elementary/discussions/629
+
+
+https://www.reddit.com/r/elementaryos/comments/1gdffpm/nvidia_drivers_on_71/
+
+$ sudo apt install ubuntu-drivers-common
+$ sudo ubuntu-drivers install
+
+
+
+https://www.cyberciti.biz/faq/ubuntu-linux-install-nvidia-driver-latest-proprietary-driver/
+
+
+
+apt
+===
+
+* update - updates the list of packages but do not install
+
+* upgrade - install new versions of packages if new versions are available
+
+* full-upgrade - performs the function of upgrade but will remove currently installed packages 
+  if this is needed to upgrade the system as a whole (fixing bad dependencies then)
+
+* autoremove, autoclean and clean - clean old packages which are not needed any more
+
+* option -y does not request for permission on every step
+  && states that it just runs the next command if the previous was successfully executed
+
+
+
+https://www.cyberciti.biz/faq/ubuntu-linux-install-nvidia-driver-latest-proprietary-driver/
+=============================================================================================
+
+sudo ubuntu-drivers list       ## list drivers
+sudo ubuntu-drivers devices    ## list devices
+sudo ubuntu-drivers install    ## install recommended
+
+
+
+
+
+NOTES 1 DEC 2024
+----------------
+lsb_release -a
+    Original Horus 7.1
+
+uname -a
+   6.2.0.33
+
+did an update and upgrade and full-update and none resulted in 
+a kernal that supported my NVIDIA card
+
+lsmod -- does not show any NVIDIA drivers
+          yet card is operating through HDMI port
+
+## LINK ## 1 (forums.developer.nvidia - did not help)
+
+
+PROBLEM we upgraded to 6.8.0.49 generic
+TRY:
+   sudo apt install nvidia-driver-535 nvidia-dkms-535
+
+And reboot
+
+This worked on 6.2.0.33 but not on 6.8.049
+
+
+
+sudo apt -y install linux-headers-$(uname -r)
+
+
+
+TRY 550  !
+
+http://ubuntu.com/server/docs/nvidia-drivers-installation
+
+
+
+PROBLEM
+. Installed Elementary OS, version 7.1, installs kernel 6.2.0.33
+. apt update; apt upgrade; installed kernel 6.8.0.49 generic
+. Screen went black
+. booted to the 6.2.0.33 kernal
+   . sudo apt install nvidia-driver-550 nvidia-dkms-550
+   . works
+. booted to 6.8.0.49
+   . sudo apt install nvidia-driver-550 nvidia-dkms-550
+   . fails when booting up and switching to X server, screen is mashed, blurred corrupted
+.  sudo apt install nvidia-driver-550 nvidia-dkms-550
+   cycles to update both kernels but always fails on the 6.8.0.49 
+
+The ERROR is:
+
+depmod...
+Building initial module for 6.8.0-49-generic
+Error! Bad return status for module build on kernel: 6.8.0-49-generic (x86_64)
+Consult /var/lib/dkms/nvidia/550.120/build/make.log for more information.
+
+when you look in the log:
+
+
+
+
+
+
+https://forums.developer.nvidia.com/t/linux-new-kernel-6-5-0-14-ubuntu-22-04-can-not-compile-nvidia-display-card-driver/278553
+   
+
+upgrade to GCC 12
+-----------------
+
+https://unix.stackexchange.com/questions/766795/unrecognized-command-line-option-ftrivial-auto-var-init-zero-when-building-ke
+
+""I changed symlink /usr/bin/gcc to gcc-12 (instead of gcc-11)""
+
