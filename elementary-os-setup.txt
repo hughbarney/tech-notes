@@ -1,0 +1,21 @@
+
+
+
+use 'English (UK)' keyboard
+not Windows Extended (which has # and £ swapped etc)
+
+
+# upgrade and sort out the NVIDIA driver
+
+# install tweaks to get mac feel, and put winow controls on RHS
+
+
+# install emacs
+use (setq x-alt-keysym `alt)
+
+
+# set prompt
+echo "PS1='$ '" >> ~/.bashrc
+
+
+
