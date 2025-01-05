@@ -18,4 +18,20 @@ use (setq x-alt-keysym `alt)
 echo "PS1='$ '" >> ~/.bashrc
 
 
+# install zoom
+- download from the zoom site (for debian)
+$ sudo dpkg -i zoom_amd64.deb
+$ sudo apt install zoom   (try first)
+$ sudo apt --fix-broken install
+
+
+
+
+
+
+
+
+
+
+
 
