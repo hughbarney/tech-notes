@@ -107,6 +107,18 @@ $ echo "X-GNOME-Autostart-enabled=false" | tee -a ~/.config/autostart/io.element
 $ reboot
 
 
+FIX FIREFOX SCROLLBARS
+https://www.dedoimedo.com/computers/firefox-scrollbars.html
+-----------------------------------------------------------
+Google "about:config" - goes to settings editor
+Search for 
+   widget.non-native-theme.enabled
+   set it to TRUE
+Search for widget.non-native-theme.scrollbar.size.override
+   set it to 30
+
+
+
 
 
 
