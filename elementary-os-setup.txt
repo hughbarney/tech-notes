@@ -88,6 +88,28 @@ $ sudo apt install pantheon-tweaks
 NOTE: sudo apt upgrade ## will install all updates (including kernal changes)
 
 
+
+DISABLE APP-CENTRE
+https://elementaryos.stackexchange.com/questions/8629/disable-appcenter-dock-reminder?rq=1
+-------------------------------------------------------------------------------------------
+
+$ mkdir ~/.config/autostart/
+
+$ cp /etc/xdg/autostart/io.elementary.appcenter-daemon.desktop ~/.config/autostart/
+
+This copies the AppCenter startup directions from the general
+autostart folder to your personal folder. (The startup process
+prioritizes directions given in the latter.)
+Then modify the new file to not load on startup:
+
+$ echo "X-GNOME-Autostart-enabled=false" | tee -a ~/.config/autostart/io.elementary.appcenter-daemon.desktop
+
+$ reboot
+
+
+
+
+
 INSTALL ZOOM
 ------------
 
@@ -95,15 +117,6 @@ INSTALL ZOOM
 $ sudo dpkg -i zoom_amd64.deb
 $ sudo apt install zoom   (try first)
 $ sudo apt --fix-broken install
-
-
-
-
-
-
-
-
-
 
 
 
