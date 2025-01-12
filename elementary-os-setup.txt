@@ -17,7 +17,9 @@ $ sudo apt install git
 -- clone tech_notes and site_lisp
 -- setup git config
 
-
+$ git config --global --list ## to show
+$ git config --global user.name "Mona Lisa"
+$ git config --global user.email "Fred@Spammail"
 
 
 $ sudo apt install emacs
