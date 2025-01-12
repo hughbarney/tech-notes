@@ -88,6 +88,24 @@ $ sudo apt install pantheon-tweaks
 NOTE: sudo apt upgrade ## will install all updates (including kernal changes)
 
 
+INSTALL kernel 6.8.0.48-generic (51 wont hibernate)
+----------------------------------------------------
+sudo apt install linux-image-6.8.0.48-generic
+sudo apt -y install linux-headers-6.8.0-48-generic  ## get the headers and forces a DKMS build
+
+
+TURN OFF HIBERNATION
+--------------------
+$ sudo systemctl mask hibernate.target 
+
+You can also disable system suspend by: 
+    Opening Settings
+    Clicking the Power tab
+    Setting Automatic Suspend to Off
+
+-- test hibernation, should now fail
+sudo systemctl hibernate
+
 
 DISABLE APP-CENTRE
 https://elementaryos.stackexchange.com/questions/8629/disable-appcenter-dock-reminder?rq=1
