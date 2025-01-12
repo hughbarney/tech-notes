@@ -166,6 +166,9 @@ https://unix.stackexchange.com/questions/766795/unrecognized-command-line-option
 FROM:  https://forum.level1techs.com/t/gcc-issues-with-ubuntu-22-04-and-mainline-kernel/199613
 -------------------------------------------------------------------------------------------------
 
+# install gcc first
+sudo ap install gcc
+
 # install gcc-12
 sudo apt install gcc-12 g++-12
 

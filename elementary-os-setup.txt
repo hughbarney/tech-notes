@@ -5,21 +5,87 @@ use 'English (UK)' keyboard
 not Windows Extended (which has # and £ swapped etc)
 
 
-# upgrade and sort out the NVIDIA driver
+Basic Setup
+-----------
 
-# install tweaks to get mac feel, and put winow controls on RHS
+$ sudo apt install firefox
 
+-- configure firefox
 
-# install emacs
-use (setq x-alt-keysym `alt)
+$ sudo apt install git
 
+-- clone tech_notes and site_lisp
 
-# set prompt
+$ sudo apt install emacs
+
+$ ln -s ~/src/site_lisp ~/site_list
+$ ln -s ~/src/site_lisp/.emacs  ~/.emacs
+
+-- set prompt
 echo "PS1='$ '" >> ~/.bashrc
 
 
-# install zoom
-- download from the zoom site (for debian)
+GRUB SETUP
+----------
+$ sudo vi /etc/default/grub
+
+  set (take out quiet splash)
+  GRUB_CMDLINE_LINUX_DEFAULT=""
+  GRUB_TIMEOUT=5
+  
+$ sudo update-grub
+
+
+SORT OUT GCC for DKMS KERNEL UPDATES
+https://forum.level1techs.com/t/gcc-issues-with-ubuntu-22-04-and-mainline-kernel/199613
+-------------------------------------------------------------------------------------------------
+
+# install gcc first
+sudo ap install gcc
+
+# install gcc-12
+sudo apt install gcc-12 g++-12
+
+# create a low-priority alternative for /usr/bin/gcc, /usr/bin/g++, and /usr/bin/gcov using gcc-11
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 110 --slave /usr/bin/g++ g++ /usr/bin/g++-11 --slave /usr/bin/gcov gcov /usr/bin/gcov-11
+
+# create a high-priority alternative for /usr/bin/gcc, /usr/bin/g++, and /usr/bin/gcov using gcc-12
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 120 --slave /usr/bin/g++ g++ /usr/bin/g++-12 --slave /usr/bin/gcov gcov /usr/bin/gcov-12
+
+# make sure you didn't goof anything up, should say version 12.1.0
+gcc --version
+
+# may not need this step yet
+# recompile any broken/missing dkms modules with gcc-12
+ls -1 /boot/initrd.img-* | cut -d- -f2- | sudo xargs -n1 /usr/lib/dkms/dkms_autoinstaller start
+
+
+
+UPGRADE NVIDIA DRIVER
+---------------------
+
+$ sudo apt install nvidia-driver-535 nvidia-dkms-535
+
+
+INSTALL TWEAKS
+-------------
+https://itsfoss.com/install-elementary-tweaks
+
+
+$ sudo apt install software-properties-common
+
+$ sudo add-apt-repository ppa:philip.scott/pantheon-tweaks
+
+$ sudo apt update        ## causes package list to be updated
+$ sudo apt install pantheon-tweaks
+
+NOTE: sudo apt upgrade ## will install all updates (including kernal changes)
+
+
+INSTALL ZOOM
+------------
+
+-- download from the zoom site (for debian)
 $ sudo dpkg -i zoom_amd64.deb
 $ sudo apt install zoom   (try first)
 $ sudo apt --fix-broken install
